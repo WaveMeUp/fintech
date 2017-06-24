@@ -1,0 +1,30 @@
+<!--
+  Generated template for the AuthConfirmPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h1>
+          Введите код из СМС
+        </h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-item>
+          <ion-input type="text" placeholder="Код в сообщении"></ion-input> <!-- TODO: маска для телефона -->
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <button ion-button block (click)="confirmCode()">Подтвердить</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

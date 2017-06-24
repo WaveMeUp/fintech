@@ -5,6 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { AuthPage } from '../pages/auth/auth'
+import { AuthProvider } from '../providers/auth/auth';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -16,13 +19,14 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public authProvider:AuthProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Диалоги', component: HomePage },
+      { title: 'List', component: ListPage },
+      { title: 'Auth', component: AuthPage }
     ];
 
   }
@@ -33,6 +37,18 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.authProvider.getUser()
+        .then((user) => {
+          if (!user) {
+            console.log('no user data');
+            this.nav.setRoot(AuthPage);
+          } else {
+            console.log('success', user)
+          }
+        }, (error) => {
+          console.log('error occurred', error);
+        })
     });
   }
 
