@@ -18,6 +18,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class AuthConfirmPage {
   phone: string = this.navParams.get('phone');
+  code: string = '5673';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loader:LoaderProvider, public authProvider:AuthProvider) {
   }

@@ -16,13 +16,13 @@
     <ion-row>
       <ion-col text-center>
         <ion-item>
-          <ion-input type="text" placeholder="Код в сообщении"></ion-input> <!-- TODO: маска для телефона -->
+          <ion-input type="text" placeholder="Код в сообщении" [(ngModel)]="code"></ion-input> <!-- TODO: маска для телефона -->
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col text-center>
-        <button ion-button block (click)="confirmCode()">Подтвердить</button>
+        <button ion-button block (click)="confirmCode()" [disabled]="!code">Подтвердить</button>
       </ion-col>
     </ion-row>
   </ion-grid>
