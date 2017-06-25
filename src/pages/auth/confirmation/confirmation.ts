@@ -1,22 +1,15 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../home/home';
-import { LoaderProvider } from '../../providers/loader/loader';
-import { AuthProvider } from '../../providers/auth/auth';
+import { HomePage } from '../../home/home';
+import { LoaderProvider } from '../../../providers/loader/loader';
+import { AuthProvider } from '../../../providers/auth/auth';
 
-
-/**
- * Generated class for the AuthConfirmPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
-  selector: 'page-auth-confirm',
-  templateUrl: 'auth-confirm.html',
+  selector: 'page-confirmation',
+  templateUrl: 'confirmation.html',
 })
-export class AuthConfirmPage {
+export class ConfirmationPage {
   phone: string = this.navParams.get('phone');
   code: string = '5673';
 

@@ -8,7 +8,10 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AuthPage } from '../pages/auth/auth';
-import { AuthConfirmPage } from '../pages/auth-confirm/auth-confirm';
+import { ConfirmationPage } from '../pages/auth/confirmation/confirmation';
+import { ChatPage } from '../pages/chat/chat';
+import { FromAccountPage } from '../pages/chat/from-account/from-account';
+import { FromCashPage } from '../pages/chat/from-cash/from-cash';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +24,10 @@ import { AuthProvider } from '../providers/auth/auth';
     HomePage,
     ListPage,
     AuthPage,
-    AuthConfirmPage
+    ConfirmationPage,
+    ChatPage,
+    FromAccountPage,
+    FromCashPage
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,10 @@ import { AuthProvider } from '../providers/auth/auth';
     HomePage,
     ListPage,
     AuthPage,
-    AuthConfirmPage
+    ConfirmationPage,
+    ChatPage,
+    FromAccountPage,
+    FromCashPage
   ],
   providers: [
     StatusBar,

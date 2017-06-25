@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{user.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="messages">
+    <div class="msg" *ngFor="let msg of messages" [ngClass]="{'from': msg.from === 0, 'to': msg.from === 1}">
+      <span class="description">
+        {{msg.description}}
+      </span>
+      <span class="amount">
+        {{msg.amount}}
+      </span>
+    </div>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light"><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab (click)="sendMoney('cash')"><ion-icon name="cash"></ion-icon></button>
+      <button ion-fab (click)="sendMoney('account')"><ion-icon name="card"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
+
+<!--<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row text-center>
+        <ion-col>
+          <div>
+            <button ion-button block (click)="sendMoney('cash')">Наличные</button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <button ion-button block (click)="sendMoney('account')">Со счета</button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>-->

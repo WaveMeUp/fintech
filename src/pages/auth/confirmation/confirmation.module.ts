@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { AuthConfirmPage } from './auth-confirm';
+import { ConfirmationPage } from './confirmation';
 
 @NgModule({
   declarations: [
-    AuthConfirmPage,
+    ConfirmationPage,
   ],
   imports: [
-    IonicPageModule.forChild(AuthConfirmPage),
+    IonicPageModule.forChild(ConfirmationPage),
   ],
   exports: [
-    AuthConfirmPage
+    ConfirmationPage
   ]
 })
 export class AuthConfirmPageModule {}

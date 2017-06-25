@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Отправить наличные
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Отмена</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{user.imgUrl}}">
+      </ion-avatar>
+      <h2>{{user.name}}</h2>
+      <p>Текущий баланс: {{user.balance}}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Сумма</ion-label>
+      <ion-input type="text" [(ngModel)]="transaction.amount"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Назначение</ion-label>
+      <ion-input type="text" [(ngModel)]="transaction.description"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <p>
+      Получатель должен будет подтвердить получение денег
+    </p>
+    <button ion-button color="primary" block>Отправить</button>
+  </div>
+</ion-content>

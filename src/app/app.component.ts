@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AuthPage } from '../pages/auth/auth'
+import { ChatPage } from '../pages/chat/chat';
 import { AuthProvider } from '../providers/auth/auth';
 
 
@@ -26,7 +27,8 @@ export class MyApp {
     this.pages = [
       { title: 'Диалоги', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Auth', component: AuthPage }
+      { title: 'Auth', component: AuthPage },
+      { title: 'Chat', component: ChatPage}
     ];
 
   }

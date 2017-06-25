@@ -1,0 +1,18 @@
+page-chat {
+  .messages {
+    .msg {
+      margin-bottom: 20px;
+      text-align: right;
+      border-radius: 20px;
+      padding: 5px;
+    }
+    .from {
+      text-align: right;
+      background-color: cornflowerblue;
+    }
+    .to {
+      text-align: left;
+      background-color: peachpuff;
+    }
+  }
+}

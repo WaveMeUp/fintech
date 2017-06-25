@@ -8,38 +8,20 @@
 </ion-header>
 
 <ion-content>
-<!--  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>-->
   <ion-list>
-    <ion-item>
+    <ion-item *ngFor="let item of dialogs" (click)="openChat(item)">
       <ion-avatar item-start>
-        <img src="./assets/img/dad.png">
+        <img src={{item.imgUrl}}>
       </ion-avatar>
-      <h2>Папа</h2>
-      <p>Деньги за холодильник</p>
-      <ion-note item-end>3850Р</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="./assets/img/dasha.png">
-      </ion-avatar>
-      <h2>Даша</h2>
-      <p>За еду</p>
-      <ion-note item-end>-343Р</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="./assets/img/slava.jpg">
-      </ion-avatar>
-      <h2>Слава</h2>
-      <p>На стим</p>
-      <ion-note item-end>1990Р</ion-note>
+      <h2>{{item.name}}</h2>
+      <p>{{item.lastMessage}}</p>
+      <ion-note item-end>{{item.balance}}</ion-note>
     </ion-item>
   </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="openSearchBar()"><ion-icon name="search"></ion-icon></button>
+    <ion-fab-list></ion-fab-list>
+  </ion-fab>
 </ion-content>
 

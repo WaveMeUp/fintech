@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AuthConfirmPage } from '../auth-confirm/auth-confirm';
+import { ConfirmationPage } from './confirmation/confirmation';
 import { LoaderProvider } from '../../providers/loader/loader';
 
 
@@ -25,7 +25,7 @@ export class AuthPage {
     // this.navCtrl.setRoot(AuthConfirmPage);
     this.loader.presentLoading('Отправка СМС');
     setTimeout(() => {
-      this.navCtrl.push(AuthConfirmPage, {phone: this.phone});
+      this.navCtrl.push(ConfirmationPage, {phone: this.phone});
     }, 2000)
   }
 
