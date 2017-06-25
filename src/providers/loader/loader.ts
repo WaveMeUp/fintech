@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, ToastController } from 'ionic-angular';
 
 
 /*
@@ -12,7 +12,7 @@ import { LoadingController } from 'ionic-angular';
 @Injectable()
 export class LoaderProvider {
 
-  constructor(public loadingCtrl: LoadingController) {
+  constructor(public loadingCtrl: LoadingController, public toast:ToastController) {
     console.log('Hello LoaderProvider Provider');
   }
 
@@ -22,5 +22,13 @@ export class LoaderProvider {
       duration: 2000
     });
     loader.present();
+  }
+
+  presentToast(msg) {
+    let toast = this.toast.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
   }
 }
