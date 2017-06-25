@@ -12,11 +12,14 @@ import { ConfirmationPage } from '../pages/auth/confirmation/confirmation';
 import { ChatPage } from '../pages/chat/chat';
 import { FromAccountPage } from '../pages/chat/from-account/from-account';
 import { FromCashPage } from '../pages/chat/from-cash/from-cash';
+import { SearchPage } from '../pages/search/search';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoaderProvider } from '../providers/loader/loader';
 import { AuthProvider } from '../providers/auth/auth';
+import { DialogsProvider } from '../providers/dialogs/dialogs';
+import { RestProvider } from '../providers/rest/rest';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { AuthProvider } from '../providers/auth/auth';
     ConfirmationPage,
     ChatPage,
     FromAccountPage,
-    FromCashPage
+    FromCashPage,
+    SearchPage
   ],
   imports: [
     BrowserModule,
@@ -43,14 +47,17 @@ import { AuthProvider } from '../providers/auth/auth';
     ConfirmationPage,
     ChatPage,
     FromAccountPage,
-    FromCashPage
+    FromCashPage,
+    SearchPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoaderProvider,
-    AuthProvider
+    AuthProvider,
+    DialogsProvider,
+    RestProvider
   ]
 })
 export class AppModule {}

@@ -2,14 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ConfirmationPage } from './confirmation/confirmation';
 import { LoaderProvider } from '../../providers/loader/loader';
+import { AuthProvider } from '../../providers/auth/auth';
 
 
-/**
- * Generated class for the AuthPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-auth',
@@ -18,7 +13,7 @@ import { LoaderProvider } from '../../providers/loader/loader';
 export class AuthPage {
   phone: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loader:LoaderProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loader:LoaderProvider, public authProvider:AuthProvider) {
   }
 
   sendMessage() {

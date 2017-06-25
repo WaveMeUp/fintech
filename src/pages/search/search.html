@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-searchbar (input)="getItems($event)" (ionCancel)="resetDialogs()" (ionClear)="resetDialogs()" placeholder="Поиск"></ion-searchbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+
+    <ion-card-content text-center>
+      Для добавления собеседника введите его номер
+    </ion-card-content>
+
+  </ion-card>
+  <ion-list>
+    <ion-item *ngFor="let item of dialogs">
+      <ion-avatar item-start>
+        <img src={{item.imgUrl}}>
+      </ion-avatar>
+      <h2>{{item.name}}</h2>
+      <p>{{item.lastMessage}}</p>
+      <ion-note item-end>{{item.balance}}</ion-note>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
