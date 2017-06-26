@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { ModalController } from 'ionic-angular';
+import { ModalController, Content } from 'ionic-angular';
 
 import { FromCashPage } from '../chat/from-cash/from-cash';
 import { FromAccountPage } from '../chat/from-account/from-account';
@@ -10,9 +10,12 @@ import { FromAccountPage } from '../chat/from-account/from-account';
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html',
+  queries: {
+    content: new ViewChild('content')
+  }
 })
 export class ChatPage {
-  // @ViewChild(Content) content: Content
+  @ViewChild(Content) content: Content;
   user: object = this.navParams.get('user');
   messages: any = [
     {
@@ -83,7 +86,10 @@ export class ChatPage {
   }
 
   ionViewWillEnter() {
-    // this.view.getContent().scrollToBottom(0);
+    setTimeout(() => {
+      this.content.scrollToBottom(0);
+    }, 1)
+
   }
 
   presentModal(page) {
