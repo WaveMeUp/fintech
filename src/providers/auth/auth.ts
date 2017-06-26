@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
-/*
-  Generated class for the AuthProvider provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
+import { RestProvider } from '../rest/rest';
+
 @Injectable()
 export class AuthProvider {
 
   constructor(private storage:Storage) {
     console.log('Hello AuthProvider Provider');
+    // storage.clear();
   }
 
   getUser() {
@@ -29,6 +27,10 @@ export class AuthProvider {
   setUser(data: any) {
     console.log('setting user', data);
     this.storage.set('user', data);
+  }
+
+  sendMessage(data: any) {
+
   }
 
   logout() {

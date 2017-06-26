@@ -4,14 +4,48 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{user.name}} | {{user.balance}}</ion-title>
+    <ion-title>{{user.name}}
+      <div class="subtitle">{{user.phone}}
+      </div>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <div class="messages">
+<ion-content>
+  <ul class="messages">
+    <li *ngFor="let msg of messages; let last = last">
+      <div class="msg" [ngClass]="{'from': msg.from === 0, 'to': msg.from === 1}">
+        <div class="type" *ngIf="msg.from === 1">
+          <img style="width: 100%" src="./assets/img/cash.png" *ngIf="msg.type === 0">
+          <img style="width: 100%" src="./assets/img/account.png" *ngIf="msg.type === 1">
+        </div>
+        <div class="text" [ngClass]="{'left': msg.from === 0, 'right': msg.from === 1}">
+          <div class="amount">
+            {{msg.amount}}
+          </div>
+          <div class="typeDesc">
+            <p *ngIf="msg.type === 0">Платеж наличными</p>
+            <p *ngIf="msg.type === 1">Платеж со счета</p>
+          </div>
+          <div class="description">
+            {{msg.description}}
+          </div>
+          <div class="time">
+            12:34 PM
+          </div>
+
+        </div>
+        <div class="type" *ngIf="msg.from === 0">
+          <img style="width: 100%" src="./assets/img/cash.png" *ngIf="msg.type === 0">
+          <img style="width: 100%" src="./assets/img/account.png" *ngIf="msg.type === 1">
+        </div>
+      </div>
+      {{last ? callFunction() : ''}}
+    </li>
+  </ul>
+  <!--<div class="messages">
     <div class="msg" *ngFor="let msg of messages" [ngClass]="{'from': msg.from === 0, 'to': msg.from === 1}">
       <span class="description">
         {{msg.description}}
@@ -20,7 +54,7 @@
         {{msg.amount}}
       </span>
     </div>
-  </div>
+  </div>-->
 
   <ion-fab right bottom>
     <button ion-fab color="light"><ion-icon name="add"></ion-icon></button>
@@ -30,6 +64,12 @@
     </ion-fab-list>
   </ion-fab>
 </ion-content>
+
+<ion-footer text-center="">
+  <ion-toolbar color="primary">
+    <ion-title>Баланс: {{user.balance}}</ion-title>
+  </ion-toolbar>
+</ion-footer>
 
 <!--<ion-footer>
   <ion-toolbar>
