@@ -1,5 +1,12 @@
 {
   "name": "fintech",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://52.164.255.166:5838/api/"
+    }
+  ]
+
 }

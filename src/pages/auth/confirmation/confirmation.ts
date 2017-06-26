@@ -4,30 +4,40 @@ import { HomePage } from '../../home/home';
 import { LoaderProvider } from '../../../providers/loader/loader';
 import { AuthProvider } from '../../../providers/auth/auth';
 
+import { User } from '../../../models/userModel';
+
 @IonicPage()
 @Component({
   selector: 'page-confirmation',
   templateUrl: 'confirmation.html',
 })
 export class ConfirmationPage {
-  phone: string = this.navParams.get('phone');
-  code: string = '5673';
+  phone: string;
+  userId: string;
+  code: number = 5673;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loader:LoaderProvider, public authProvider:AuthProvider) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, private loader:LoaderProvider, private auth:AuthProvider) {
+    this.phone = navParams.get('phone');
+    this.userId = navParams.get('userId');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AuthConfirmPage');
   }
 
-  confirmCode() {
+  confirmCode(code:number) {
     this.loader.presentLoading("Проверка кода");
-    let data = {
-      phone: this.phone
-    }
-    setTimeout(() => {
+    this.auth.confirmCode(this.userId, code)
+      .then(token => {
+        this.loader.dissmissAllLoaders();
+        let user = new User(this.userId,this.phone,token);
+        this.auth.setUser(user);
+        this.navCtrl.setRoot(HomePage);
+        console.log('got token', token, typeof(token));
+      })
+    /*setTimeout(() => {
       this.authProvider.setUser(data);
       this.navCtrl.setRoot(HomePage);
-    }, 2000);
+    }, 2000);*/
   }
 }

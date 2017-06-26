@@ -20,7 +20,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="dialogs?.length > 0">
     <ion-item *ngFor="let item of dialogs" (click)="openChat(item)">
       <ion-avatar item-start>
         <img src={{item.imgUrl}}>

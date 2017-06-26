@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule  } from '@ionic/storage';
+import { Http, HttpModule, RequestOptions, XHRBackend} from '@angular/http'
 
 
 import { MyApp } from './app.component';
@@ -21,6 +22,8 @@ import { AuthProvider } from '../providers/auth/auth';
 import { DialogsProvider } from '../providers/dialogs/dialogs';
 import { RestProvider } from '../providers/rest/rest';
 
+import { HttpInterceptor } from '../http/interceptedHttp';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -35,6 +38,7 @@ import { RestProvider } from '../providers/rest/rest';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -51,13 +55,17 @@ import { RestProvider } from '../providers/rest/rest';
     SearchPage
   ],
   providers: [
+    AuthProvider,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoaderProvider,
-    AuthProvider,
     DialogsProvider,
-    RestProvider
+    RestProvider,
+    {
+      provide: Http,
+      useClass: HttpInterceptor
+    }
   ]
 })
 export class AppModule {}

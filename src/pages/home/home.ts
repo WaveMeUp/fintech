@@ -22,7 +22,7 @@ export class HomePage implements OnInit{
   ngOnInit() {
     this._dialogs.getAllDialogs()
       .then(data => {
-      this.dialogs = data;
+        this.dialogs = data;
       })
   }
   openChat (user: any) {

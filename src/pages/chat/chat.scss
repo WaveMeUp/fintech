@@ -6,7 +6,7 @@ page-chat {
   }
   ion-content {
     //background-image: url("./assets/img/chat_background.jpeg");
-    background-color: #D2D5DD !important;
+    background-color: #edf0f8 !important;
   }
   ul {
     width: 100%;
@@ -73,8 +73,9 @@ page-chat {
       }
     }
     .from {
+      color: white;
       float: right;
-      background: #80B595;
+      background: #4FB477;
     }
     .to {
       float: left;

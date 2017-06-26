@@ -44,16 +44,14 @@ export class SearchPage implements OnInit{
 
     // set val to the value of the ev target
     var val = ev.target.value.toLowerCase();
-
     // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
+    if (val && val.trim() != '' && this.dialogs.length > 0) {
       this.dialogs = this.dialogs.filter((item) => {
         return (item.lastMessage.toLowerCase().indexOf(val) > -1 ||
         item.name.toLowerCase().indexOf(val) > -1 ||
         item.phone.indexOf(val) > -1);
       })
     }
-    console.log(val, this.dialogs);
   }
 
 }

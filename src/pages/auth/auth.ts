@@ -13,15 +13,18 @@ import { AuthProvider } from '../../providers/auth/auth';
 export class AuthPage {
   phone: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loader:LoaderProvider, public authProvider:AuthProvider) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, private loader:LoaderProvider, private auth:AuthProvider) {
   }
 
-  sendMessage() {
-    // this.navCtrl.setRoot(AuthConfirmPage);
+  sendMessage(phone:string) {
     this.loader.presentLoading('Отправка СМС');
-    setTimeout(() => {
-      this.navCtrl.push(ConfirmationPage, {phone: this.phone});
-    }, 2000)
+    this.auth.sendMessage(phone)
+      .then(userId => {
+        console.log('got userid', userId);
+        this.loader.dissmissAllLoaders();
+        this.navCtrl.push(ConfirmationPage, {phone, userId})
+      })
+    // this.navCtrl.setRoot(AuthConfirmPage);
   }
 
   ionViewDidLoad() {

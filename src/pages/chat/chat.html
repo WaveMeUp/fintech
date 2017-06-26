@@ -22,7 +22,7 @@
           <img style="width: 100%" src="./assets/img/account.png" *ngIf="msg.type === 1">
         </div>
         <div class="text" [ngClass]="{'left': msg.from === 0, 'right': msg.from === 1}">
-          <div class="amount">
+          <div class="amount" [ngClass]="{'color:white': msg.from === 0}">
             {{msg.amount}}
           </div>
           <div class="typeDesc">
@@ -57,7 +57,7 @@
   </div>-->
 
   <ion-fab right bottom>
-    <button ion-fab color="light"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
     <ion-fab-list side="left">
       <button ion-fab (click)="sendMoney('cash')"><ion-icon name="cash"></ion-icon></button>
       <button ion-fab (click)="sendMoney('account')"><ion-icon name="card"></ion-icon></button>
@@ -66,7 +66,7 @@
 </ion-content>
 
 <ion-footer text-center="">
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-title>Баланс: {{user.balance}}</ion-title>
   </ion-toolbar>
 </ion-footer>

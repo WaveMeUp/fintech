@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { RestProvider } from "../rest/rest";
+
 
 @Injectable()
 export class DialogsProvider {
@@ -30,12 +32,18 @@ export class DialogsProvider {
     }
   ];
 
-  constructor() {
+  constructor(public rest:RestProvider) {
     console.log('Hello DialogsProvider Provider');
   }
 
-  getAllDialogs() {
+  /*getAllDialogs() {
     return Promise.resolve(this.dialogs);
+  }*/
+
+  getAllDialogs() {
+    return Promise.resolve(this.rest.getDialogs()
+      .subscribe(res => res)
+    )
   }
 
 }

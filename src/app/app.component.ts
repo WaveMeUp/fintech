@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,10 +13,10 @@ import { AuthProvider } from '../providers/auth/auth';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnInit{
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  // rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -32,7 +32,20 @@ export class MyApp {
     ];
 
   }
-
+  ngOnInit() {
+    this.authProvider.getUser()
+      .then((user) => {
+        if (!user) {
+          console.log('no user data');
+          this.nav.setRoot(AuthPage);
+        } else {
+          this.nav.setRoot(HomePage);
+          console.log('success', user)
+        }
+      }, (error) => {
+        console.log('error occurred', error);
+      })
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -40,17 +53,6 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.authProvider.getUser()
-        .then((user) => {
-          if (!user) {
-            console.log('no user data');
-            this.nav.setRoot(AuthPage);
-          } else {
-            console.log('success', user)
-          }
-        }, (error) => {
-          console.log('error occurred', error);
-        })
     });
   }
 
