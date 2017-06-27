@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
 import { RestProvider } from "../rest/rest";
+import { AuthProvider } from "../auth/auth";
 
 
 @Injectable()
@@ -32,7 +33,7 @@ export class DialogsProvider {
     }
   ];
 
-  constructor(public rest:RestProvider) {
+  constructor(public rest:RestProvider, public auth:AuthProvider) {
     console.log('Hello DialogsProvider Provider');
   }
 
@@ -40,10 +41,32 @@ export class DialogsProvider {
     return Promise.resolve(this.dialogs);
   }*/
 
-  getAllDialogs() {
-    return Promise.resolve(this.rest.getDialogs()
-      .subscribe(res => res)
-    )
+  getAllDialogs(token?: string) {
+    return new Promise((resolve, reject) => {
+      this.rest.getDialogs(token)
+        .subscribe(res => {
+          resolve (res)
+        })
+    })
+  }
+
+  createDialog(secondId:number):any {
+    return new Promise((resolve, reject) => {
+      this.auth.getUser()
+        .then(user => {
+          this.rest.createDialog(user.userId,secondId).subscribe(res => {
+            resolve(res);
+          })
+        })
+    })
+  }
+
+  checkPhone(phone:string):any {
+    return new Promise((resolve, reject) => {
+      this.rest.checkPhone(phone).subscribe(res => {
+        resolve(res)
+      })
+    })
   }
 
 }

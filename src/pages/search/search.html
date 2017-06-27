@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-searchbar (input)="getItems($event)" (ionCancel)="resetDialogs()" (ionClear)="resetDialogs()" placeholder="Поиск"></ion-searchbar>
+    <ion-searchbar (input)="getItems($event)" [(ngModel)]="search" (ionCancel)="resetDialogs()" (ionClear)="resetDialogs()" placeholder="Поиск"></ion-searchbar>
   </ion-navbar>
 </ion-header>
 
@@ -12,6 +12,13 @@
 
     <ion-card-content text-center>
       Для добавления собеседника введите его номер
+    </ion-card-content>
+
+  </ion-card>
+  <ion-card *ngIf="search">
+
+    <ion-card-content text-center (click)="startDialog(search)">
+      Начать диалог с <strong>{{search}}</strong>
     </ion-card-content>
 
   </ion-card>

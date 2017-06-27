@@ -32,7 +32,7 @@ export class ConfirmationPage {
         this.loader.dissmissAllLoaders();
         let user = new User(this.userId,this.phone,token);
         this.auth.setUser(user);
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(HomePage,{token});
         console.log('got token', token, typeof(token));
       })
     /*setTimeout(() => {

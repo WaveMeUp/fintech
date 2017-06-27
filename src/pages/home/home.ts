@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, FabContainer } from 'ionic-angular';
+import { NavController, NavParams, FabContainer } from 'ionic-angular';
 
 import { ChatPage } from '../chat/chat';
 import { SearchPage } from '../search/search';
@@ -14,15 +14,17 @@ export class HomePage implements OnInit{
   temp: any;
   dialogs: any;
   isSearchOpen: boolean = true;
+  token: string;
 
-  constructor(public navCtrl: NavController, public fab:FabContainer, public _dialogs:DialogsProvider) {
-
+  constructor(public navCtrl: NavController, public navParams:NavParams, public fab:FabContainer, public _dialogs:DialogsProvider) {
+    if (navParams.get('token')) this.token = navParams.get('token');
   }
 
   ngOnInit() {
-    this._dialogs.getAllDialogs()
+    this._dialogs.getAllDialogs(this.token)
       .then(data => {
         this.dialogs = data;
+        console.log(this.dialogs);
       })
   }
   openChat (user: any) {

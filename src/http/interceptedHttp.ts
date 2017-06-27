@@ -12,13 +12,14 @@ import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class HttpInterceptor extends Http {
-  userToken:string
+  userToken:string;
 
   constructor(backend: XHRBackend, defaultOptions: RequestOptions, private storage:Storage) {
     super(backend, defaultOptions);
     storage.get('user')
       .then(user => {
-        this.userToken = user.token;
+        if (user) this.userToken = user.token;
+
       })
   }
 
@@ -83,6 +84,7 @@ export class HttpInterceptor extends Http {
     }
 
     options.withCredentials = true;
+    console.log(this.userToken);
     if (this.userToken) options.headers.set('x-access-token', this.userToken);
     console.log(options);
     return options

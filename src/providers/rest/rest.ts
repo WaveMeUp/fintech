@@ -4,12 +4,14 @@ import 'rxjs/add/operator/map';
 
 import { AppSettings } from '../../appSettings';
 import {Observable} from "rxjs/Observable";
+import { Storage } from '@ionic/storage';
+
 
 
 @Injectable()
 export class RestProvider {
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private storage: Storage) {
   }
 
   /**
@@ -34,8 +36,11 @@ export class RestProvider {
   }
 
 
-  getDialogs() {
-    return this.http.get("dialog")
+  getDialogs(token?: string) {
+    let options = new RequestOptions();
+    options.headers = new Headers();
+    if (token) options.headers.set('x-access-token', token);
+    return this.http.get("dialog", options)
       .map(res => res.json())
   }
 
@@ -43,5 +48,17 @@ export class RestProvider {
 
   }
 
+  checkPhone(phoneNumber:string) {
+    return this.http.post("user/getByPhoneNumber", {phoneNumber})
+      .map(res => res.json())
+  }
+
+  createDialog(userId:number, secondId:number) {
+    let options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.set('Content-Type', 'application/json');
+    return this.http.post("dialog",JSON.stringify({members:[userId,secondId]}), options)
+      .map(res => res)
+  }
 
 }

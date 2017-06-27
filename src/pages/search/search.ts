@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DialogsProvider } from '../../providers/dialogs/dialogs';
 
+import { LoaderProvider } from '../../providers/loader/loader';
+
 
 @IonicPage()
 @Component({
@@ -13,8 +15,9 @@ export class SearchPage implements OnInit{
 
   loadedDialogs: any;
   dialogs: any;
+  search: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public _dialogs:DialogsProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public _dialogs:DialogsProvider, public loader:LoaderProvider) {
 
   }
 
@@ -26,6 +29,23 @@ export class SearchPage implements OnInit{
       })
   }
 
+  startDialog(phone: string) {
+    this.loader.presentLoading("Загрузка");
+    this._dialogs.checkPhone(phone)
+      .then(data => {
+        console.log(data);
+        if (data) {
+          this._dialogs.createDialog(data.userId)
+            .then(response => {
+              this.loader.dissmissAllLoaders();
+              console.log(response)
+            })
+        } else {
+          this.loader.dissmissAllLoaders();
+          this.loader.presentToast("Номер не найден");
+        }
+      })
+  }
   resetDialogs() {
     this.dialogs = this.loadedDialogs;
   }
