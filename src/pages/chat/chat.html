@@ -1,11 +1,11 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button menuToggle (click)="back()">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{user.members[0].name ? user.members[0].name : user.members[0].phoneNumber}}
-      <div class="subtitle">{{user.phone}}
+    <ion-title>{{partner.name || partner.phoneNumber}}
+      <div class="subtitle" *ngIf="partner.name">{{partner.phoneNumber}}
       </div>
     </ion-title>
   </ion-navbar>
@@ -15,34 +15,36 @@
 
 <ion-content>
   <ul class="messages">
-    <li *ngFor="let msg of messages; let last = last">
-      <div class="msg" [ngClass]="{'from': msg.from === 0, 'to': msg.from === 1}">
-        <div class="type" *ngIf="msg.from === 1">
-          <img style="width: 100%" src="./assets/img/cash.png" *ngIf="msg.type === 0">
-          <img style="width: 100%" src="./assets/img/account.png" *ngIf="msg.type === 1">
+    <li *ngFor="let msg of messages | sortdate: '+updatedAt'">
+      <div class="msg" [ngClass]="{'from': msg.from === user.userId, 'to': msg.from != user.userId}">
+        <div class="type" *ngIf="msg.from != user.userId">
+          <img style="width: 100%" src="./assets/img/cash.png" *ngIf="msg.type === 'cash'">
+          <img style="width: 100%" src="./assets/img/account.png" *ngIf="msg.type === 'online'">
         </div>
-        <div class="text" [ngClass]="{'left': msg.from === 0, 'right': msg.from === 1}">
-          <div class="amount" [ngClass]="{'color:white': msg.from === 0}">
-            {{msg.amount}}
+        <div class="text" [ngClass]="{'left': msg.from === user.userId, 'right': msg.from != user.userId}">
+          <div class="amount" [ngClass]="{'color:white': msg.from === user.userId}">
+            {{msg.money}}₽
+          </div>
+          <div *ngIf="!msg.isConfirmed && msg.to === user.userId" (click)="confirmCash(msg)">
+            Подтвердить
           </div>
           <div class="typeDesc">
-            <p *ngIf="msg.type === 0">Платеж наличными</p>
-            <p *ngIf="msg.type === 1">Платеж со счета</p>
+            <p *ngIf="msg.type === 'cash'">Платеж наличными</p>
+            <p *ngIf="msg.type === 'online'">Платеж со счета</p>
           </div>
           <div class="description">
-            {{msg.description}}
+            {{msg.comment}}
           </div>
           <div class="time">
             12:34 PM
           </div>
 
         </div>
-        <div class="type" *ngIf="msg.from === 0">
-          <img style="width: 100%" src="./assets/img/cash.png" *ngIf="msg.type === 0">
-          <img style="width: 100%" src="./assets/img/account.png" *ngIf="msg.type === 1">
+        <div class="type" *ngIf="msg.from === user.userId">
+          <img style="width: 100%" src="./assets/img/cash.png" *ngIf="msg.type === 'cash'">
+          <img style="width: 100%" src="./assets/img/account.png" *ngIf="msg.type === 'online'">
         </div>
       </div>
-      {{last ? callFunction() : ''}}
     </li>
   </ul>
   <!--<div class="messages">
@@ -67,7 +69,7 @@
 
 <ion-footer text-center="">
   <ion-toolbar>
-    <ion-title>Баланс: {{user.balance}}</ion-title>
+    <ion-title>Баланс: {{balance || 0}}₽</ion-title>
   </ion-toolbar>
 </ion-footer>
 

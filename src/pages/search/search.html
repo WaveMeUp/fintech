@@ -17,7 +17,7 @@
   </ion-card>
   <ion-card *ngIf="search">
 
-    <ion-card-content text-center (click)="startDialog(search)">
+    <ion-card-content text-center (click)="checkPhone(search)">
       Начать диалог с <strong>{{search}}</strong>
     </ion-card-content>
 
@@ -27,9 +27,9 @@
       <ion-avatar item-start>
         <img src="./assets/img/default-avatar.png">
       </ion-avatar>
-      <h2>{{item.name || item.members[0]?.phoneNumber}}</h2>
+      <h2>{{getPartner(item.users).name || getPartner(item.users).phoneNumber}}</h2>
       <p>{{item.lastMessage}}</p>
-      <ion-badge item-end>{{item.balance}}</ion-badge>
+      <ion-badge item-end>{{getBalance(item.balances).money || 0}}</ion-badge>
     </ion-item>
   </ion-list>
 

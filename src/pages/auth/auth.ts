@@ -5,7 +5,6 @@ import { LoaderProvider } from '../../providers/loader/loader';
 import { AuthProvider } from '../../providers/auth/auth';
 
 
-@IonicPage()
 @Component({
   selector: 'page-auth',
   templateUrl: 'auth.html',

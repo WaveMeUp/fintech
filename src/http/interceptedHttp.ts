@@ -3,18 +3,19 @@
  */
 
 import {Injectable, Injector} from "@angular/core";
-import { ConnectionBackend, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers} from "@angular/http";
+import { ConnectionBackend, XHRBackend, RequestOptions, Request, RequestOptionsArgs, ResponseOptionsArgs, Response, Http, Headers} from "@angular/http";
 import { Observable } from "rxjs/Rx";
 import { AppSettings } from '../appSettings';
 
 import { Storage } from '@ionic/storage';
+import { UtilsProvider } from '../providers/utils';
 
 
 @Injectable()
 export class HttpInterceptor extends Http {
   userToken:string;
 
-  constructor(backend: XHRBackend, defaultOptions: RequestOptions, private storage:Storage) {
+  constructor(backend: XHRBackend, defaultOptions: RequestOptions, private storage:Storage, private utils:UtilsProvider) {
     super(backend, defaultOptions);
     storage.get('user')
       .then(user => {
@@ -24,8 +25,21 @@ export class HttpInterceptor extends Http {
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-    return super.request(url, options);
+    return super.request(url, options)
+      .catch(this.catchErrors());
   }
+
+  private catchErrors() {
+    return (response: Response) => {
+      if (response.status === 403) {
+        console.warn('403 status, clearing storage')
+        // this.utils.clearStorage();
+
+      }
+      return Observable.throw(response);
+    };
+  }
+
 
   get(url: string, options?: RequestOptionsArgs): Observable<Response> {
     url = this.updateUrl(url);

@@ -17,10 +17,10 @@
   <ion-list>
     <ion-item>
       <ion-avatar item-start>
-        <img src="{{user.imgUrl}}">
+        <img src="./assets/img/default-avatar.png">
       </ion-avatar>
-      <h2>{{user.name}}</h2>
-      <p>Текущий баланс: {{user.balance}}</p>
+      <h2>{{user.phoneNumber || user.phone}}</h2>
+      <p>Текущий баланс: {{getBalance(dialog.balances).money || 0}}</p>
     </ion-item>
 
       <ion-item>
@@ -34,6 +34,6 @@
       </ion-item>
   </ion-list>
   <div padding>
-    <button ion-button color="primary" block (click)="sendMoney()">Отправить</button>
+    <button ion-button color="primary" block (click)="sendMoney(transaction.amount, transaction.description)">Отправить</button>
   </div>
 </ion-content>

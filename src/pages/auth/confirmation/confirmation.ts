@@ -6,7 +6,6 @@ import { AuthProvider } from '../../../providers/auth/auth';
 
 import { User } from '../../../models/userModel';
 
-@IonicPage()
 @Component({
   selector: 'page-confirmation',
   templateUrl: 'confirmation.html',

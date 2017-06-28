@@ -21,6 +21,10 @@ import { LoaderProvider } from '../providers/loader/loader';
 import { AuthProvider } from '../providers/auth/auth';
 import { DialogsProvider } from '../providers/dialogs/dialogs';
 import { RestProvider } from '../providers/rest/rest';
+import { UtilsProvider } from '../providers/utils';
+import { MessagesProvider } from '../providers/dialogs/messages';
+
+import { SortDatePipe } from '../pipes/sort';
 
 import { HttpInterceptor } from '../http/interceptedHttp';
 
@@ -29,12 +33,13 @@ import { HttpInterceptor } from '../http/interceptedHttp';
     MyApp,
     HomePage,
     ListPage,
-    AuthPage,
     ConfirmationPage,
     ChatPage,
     FromAccountPage,
     FromCashPage,
-    SearchPage
+    SearchPage,
+    AuthPage,
+    SortDatePipe
   ],
   imports: [
     BrowserModule,
@@ -62,6 +67,8 @@ import { HttpInterceptor } from '../http/interceptedHttp';
     LoaderProvider,
     DialogsProvider,
     RestProvider,
+    UtilsProvider,
+    MessagesProvider,
     {
       provide: Http,
       useClass: HttpInterceptor

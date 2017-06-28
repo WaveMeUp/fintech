@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { AppSettings } from '../../appSettings';
 import {Observable} from "rxjs/Observable";
@@ -36,6 +37,11 @@ export class RestProvider {
   }
 
 
+  /**
+   * Получаем массив диалогов
+   * @param token
+   * @returns {Observable<R>}
+   */
   getDialogs(token?: string) {
     let options = new RequestOptions();
     options.headers = new Headers();
@@ -48,17 +54,33 @@ export class RestProvider {
 
   }
 
+  /**
+   * Проверяем, есть ли такой номер в базе
+   * @param phoneNumber
+   * @returns {Observable<R>}
+   */
   checkPhone(phoneNumber:string) {
     return this.http.post("user/getByPhoneNumber", {phoneNumber})
       .map(res => res.json())
+      /*.catch(error =>
+      {
+        console.log('catched error', error);
+        return error.json()
+      })*/
   }
 
-  createDialog(userId:number, secondId:number) {
+  /**
+   * Создаём диалог для двух пользователей
+   * @param userId
+   * @param secondId
+   * @returns {Observable<R>}
+   */
+  createDialog(userId:number, secondId:number, balance:number) {
     let options = new RequestOptions();
     options.headers = new Headers();
     options.headers.set('Content-Type', 'application/json');
-    return this.http.post("dialog",JSON.stringify({members:[userId,secondId]}), options)
-      .map(res => res)
+    return this.http.post("dialog",JSON.stringify({members:[userId,secondId], balance}), options)
+      .map(res => res.json())
   }
 
 }

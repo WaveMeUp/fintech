@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
 import { AppSettings } from '../../appSettings';
+// import { AuthPage } from '../../pages/auth/auth';
 
 import { RestProvider } from '../rest/rest';
 
@@ -10,6 +11,7 @@ import { User } from '../../models/userModel';
 @Injectable()
 export class AuthProvider {
   public userToken:string;
+  user: User;
 
   constructor(private storage:Storage, private rest:RestProvider) {
     console.log('Hello AuthProvider Provider');
@@ -17,9 +19,11 @@ export class AuthProvider {
   }
 
   getUser():Promise<any> {
+    if (this.user) return Promise.resolve(this.user);
     return new Promise((resolve, reject) => {
       this.storage.get('user')
         .then((data) => {
+          this.user = data;
           resolve (data)
         }, (error) => {
           reject (error);
@@ -27,6 +31,10 @@ export class AuthProvider {
     })
   }
 
+  clearStorage() {
+    this.storage.clear();
+
+  }
   /**
    * Сохраняем данные пользователя
    * @param data
@@ -61,6 +69,7 @@ export class AuthProvider {
    * @returns {Promise<T>}
    */
   sendMessage(phone: string):Promise<string> {
+    this.clearStorage();
     return new Promise((resolve, reject) => {
       this.rest.sendSms(phone).subscribe(res => {
         resolve(res.userId);

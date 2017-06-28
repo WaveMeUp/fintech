@@ -10,24 +10,17 @@
       </button>
     </ion-buttons>
   </ion-toolbar>
-
-  <!--<ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Диалоги</ion-title>
-  </ion-navbar>-->
 </ion-header>
 
 <ion-content>
   <ion-list *ngIf="dialogs?.length > 0">
-    <ion-item *ngFor="let item of dialogs" (click)="openChat(item)">
+    <ion-item *ngFor="let item of dialogs | sortdate: '-updatedAt'" (click)="openChat(item, getPartner(item.users))">
       <ion-avatar item-start>
         <img src="./assets/img/default-avatar.png">
       </ion-avatar>
-      <h2>{{item.name || item.members[0]?.phoneNumber}}</h2>
+      <h2>{{getPartner(item.users).name || getPartner(item.users).phoneNumber}}</h2>
       <p>{{item.lastMessage}}</p>
-      <ion-badge item-end>{{item.balance}}</ion-badge>
+      <ion-badge item-end>{{getBalance(item.balances).money || 0}}₽</ion-badge>
     </ion-item>
   </ion-list>
 
