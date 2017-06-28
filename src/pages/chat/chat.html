@@ -4,7 +4,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{user.name}}
+    <ion-title>{{user.members[0].name ? user.members[0].name : user.members[0].phoneNumber}}
       <div class="subtitle">{{user.phone}}
       </div>
     </ion-title>

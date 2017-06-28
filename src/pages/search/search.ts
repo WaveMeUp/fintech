@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DialogsProvider } from '../../providers/dialogs/dialogs';
 
+import { ChatPage } from '../chat/chat';
 import { LoaderProvider } from '../../providers/loader/loader';
 
 
@@ -54,6 +55,10 @@ export class SearchPage implements OnInit{
     this.loadDialogs();
   }
 
+  openChat (user: any) {
+    this.navCtrl.push(ChatPage, {user})
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
   }
@@ -67,9 +72,9 @@ export class SearchPage implements OnInit{
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '' && this.dialogs.length > 0) {
       this.dialogs = this.dialogs.filter((item) => {
-        return (item.lastMessage.toLowerCase().indexOf(val) > -1 ||
-        item.name.toLowerCase().indexOf(val) > -1 ||
-        item.phone.indexOf(val) > -1);
+        return (
+          (item.members[0].name ? item.members[0].name.toLowerCase().indexOf(val) > -1 : false) || (item.members[1].name ? item.members[1].name.toLowerCase().indexOf(val) > -1 : false) ||
+        item.members[0].phoneNumber.indexOf(val) > -1 || item.members[0].phoneNumber.indexOf(val) > -1);
       })
     }
   }
