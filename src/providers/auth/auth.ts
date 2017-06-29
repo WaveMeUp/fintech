@@ -15,7 +15,8 @@ export class AuthProvider {
 
   constructor(private storage:Storage, private rest:RestProvider) {
     console.log('Hello AuthProvider Provider');
-    // storage.clear();
+/*    storage.clear();
+    storage.get('token').then(token => console.log(token));*/
   }
 
   getUser():Promise<any> {
@@ -32,6 +33,8 @@ export class AuthProvider {
   }
 
   clearStorage() {
+    this.storage.remove('token');
+    this.storage.remove('user');
     this.storage.clear();
 
   }
@@ -66,12 +69,13 @@ export class AuthProvider {
   /**
    * Отправляем сообщение на введенный телефон
    * @param phone
+   * @param name
    * @returns {Promise<T>}
    */
-  sendMessage(phone: string):Promise<string> {
+  sendMessage(phone: string, name?: string):Promise<string> {
     this.clearStorage();
     return new Promise((resolve, reject) => {
-      this.rest.sendSms(phone).subscribe(res => {
+      this.rest.sendSms(phone, name).subscribe(res => {
         resolve(res.userId);
       })
     })

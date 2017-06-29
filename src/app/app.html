@@ -1,7 +1,10 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Меню</ion-title>
+      <ion-title>{{user?.name || user?.phoneNumber}}
+        <div class="subtitle" *ngIf="user?.name">{{user.phoneNumber}}
+        </div>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -10,6 +13,7 @@
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
+      <button menuClose ion-item (click)="exit()">Выйти</button>
     </ion-list>
   </ion-content>
 

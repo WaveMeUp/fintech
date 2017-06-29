@@ -25,13 +25,16 @@
     <ion-row>
       <ion-col text-center>
         <ion-item>
-          <ion-input type="text" placeholder="Номер телефона" [(ngModel)]="phone"></ion-input> <!-- TODO: маска для телефона -->
+          <ion-input type="tel" placeholder="Номер телефона" [(ngModel)]="phone"></ion-input> <!-- TODO: маска для телефона -->
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Имя" [(ngModel)]="name"></ion-input> <!-- TODO: маска для телефона -->
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col text-center>
-        <button ion-button block (click)="sendMessage(phone)" [disabled]="!phone">Отправить код</button>
+        <button ion-button block (click)="sendMessage(phone, name)" [disabled]="!phone || !name">Отправить код</button>
       </ion-col>
     </ion-row>
   </ion-grid>

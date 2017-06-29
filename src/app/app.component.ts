@@ -9,6 +9,8 @@ import { AuthPage } from '../pages/auth/auth'
 import { ChatPage } from '../pages/chat/chat';
 import { AuthProvider } from '../providers/auth/auth';
 
+import { User } from '../models/userModel';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -19,16 +21,14 @@ export class MyApp implements OnInit{
   // rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
+  user: User;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public authProvider:AuthProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Диалоги', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Auth', component: AuthPage },
-      { title: 'Chat', component: ChatPage}
+      { title: 'Диалоги', component: HomePage }
     ];
 
   }
@@ -39,6 +39,7 @@ export class MyApp implements OnInit{
           console.log('no user data');
           this.nav.setRoot(AuthPage);
         } else {
+          this.user = user;
           this.nav.setRoot(HomePage);
           console.log('success', user)
         }
@@ -60,5 +61,10 @@ export class MyApp implements OnInit{
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  exit() {
+    this.authProvider.clearStorage();
+    this.nav.setRoot(AuthPage);
   }
 }

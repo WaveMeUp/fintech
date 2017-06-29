@@ -37,6 +37,6 @@
     <p>
       Получатель должен будет подтвердить получение денег
     </p>
-    <button ion-button color="primary" block (click)="sendMoney(transaction.amount, transaction.description)">Отправить</button>
+    <button ion-button color="primary" [disabled]="transaction.amount <= 0" block (click)="sendMoney(transaction.amount, transaction.description)">Отправить</button>
   </div>
 </ion-content>

@@ -23,6 +23,7 @@ page-chat {
   }
   .messages {
     .msg {
+      position: relative;
       margin-top: 10px;
       width: 85%;
       border-radius: 5px;
@@ -42,6 +43,21 @@ page-chat {
         flex-direction: column;
         .amount {
           font-size: 25px;
+        }
+        .confirm {
+          font-size: 40px;
+          position: absolute;
+          right: -55px;
+          top: 0;
+        }
+        .confirmFrom {
+          left: -55px;
+        }
+        .true {
+          color: green;
+        }
+        .warn {
+          color: #d2d253;
         }
         .typeDesc {
           color: #2F99C6;

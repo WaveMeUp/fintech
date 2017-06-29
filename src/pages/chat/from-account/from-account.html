@@ -34,6 +34,6 @@
       </ion-item>
   </ion-list>
   <div padding>
-    <button ion-button color="primary" block (click)="sendMoney(transaction.amount, transaction.description)">Отправить</button>
+    <button ion-button color="primary" block [disabled]="transaction.amount <= 0" (click)="sendMoney(transaction.amount, transaction.description)">Отправить</button>
   </div>
 </ion-content>

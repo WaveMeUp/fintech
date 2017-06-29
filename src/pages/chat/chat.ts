@@ -123,6 +123,7 @@ export class ChatPage{
   }
 
   confirmCash(message) {
+    if (message.isConfirmed || message.from === this.user.userId) return false;
     message.isConfirmed = true;
     this.messagesProvider.confirmCash(message.id);
   }

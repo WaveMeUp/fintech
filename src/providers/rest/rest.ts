@@ -18,10 +18,11 @@ export class RestProvider {
   /**
    * HTTP запрос на отправку смс
    * @param phoneNumber
+   * @param name
    * @returns {Observable<R>}
    */
-  sendSms(phoneNumber:string) {
-    return this.http.post("auth/sendSms", {phoneNumber})
+  sendSms(phoneNumber:string, name?: string) {
+    return this.http.post("auth/sendSms", {phoneNumber, name})
       .map(res => res.json())
   }
 

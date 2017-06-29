@@ -11,13 +11,14 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class AuthPage {
   phone: string;
+  name: string;
 
   constructor(public navCtrl: NavController, private navParams: NavParams, private loader:LoaderProvider, private auth:AuthProvider) {
   }
 
-  sendMessage(phone:string) {
+  sendMessage(phone: string, name: string) {
     this.loader.presentLoading('Отправка СМС');
-    this.auth.sendMessage(phone)
+    this.auth.sendMessage(phone, name)
       .then(userId => {
         console.log('got userid', userId);
         this.loader.dissmissAllLoaders();
