@@ -16,10 +16,11 @@ import { Message } from '../../models/messageModel';
 
 @Injectable()
 export class MessagesProvider {
-  socket: any = io('http://52.164.255.166:5838');
+  socket: any;
   // jwt: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicGhvbmVOdW1iZXIiOiI4OTIxNzQ1Njc4NyIsImlhdCI6MTQ5ODUwMjA0Nn0.IjbFxDIYGvBmYvyh29nGHmAwUZhs9_HCQf4nogiQIYA"
   //
   constructor(public rest:RestProvider, private auth:AuthProvider, private events:Events, private utils:UtilsProvider) {
+    this.establishConnection();
     auth.getUser().then(user => {
       this.socket.emit('authenticate', {token: user.token})
         .on('authenticated', (msg) => {
@@ -37,9 +38,17 @@ export class MessagesProvider {
           console.log('got confirmation', message);
           events.publish('responseConfirmMessage', message);
         })
+        .on('disconnect', msg => {
+          console.log('disconnected', msg)
+          this.establishConnection();
+        })
     })
   }
 
+  establishConnection() {
+    console.log('establishing connection');
+    this.socket = io('http://52.164.255.166:5838',{'pingInterval':5000});
+  }
   sendMessage(msg: Message) {
     console.log('sending msg', msg);
     this.socket.emit("sendMessage", msg);
