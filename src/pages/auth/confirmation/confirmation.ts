@@ -28,10 +28,12 @@ export class ConfirmationPage {
     this.loader.presentLoading("Проверка кода");
     this.auth.confirmCode(this.userId, code)
       .then(token => {
-        this.loader.dissmissAllLoaders();
         let user = new User(this.userId,this.phone,token);
         this.auth.setUser(user);
-        this.navCtrl.setRoot(HomePage,{token});
+        setTimeout(() => {
+          this.loader.dissmissAllLoaders();
+          this.navCtrl.setRoot(HomePage,{token});
+        }, 2000);
         console.log('got token', token, typeof(token));
       })
     /*setTimeout(() => {

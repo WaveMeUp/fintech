@@ -21,11 +21,20 @@ export class HomePage implements OnInit{
   token: string;
   user: User;
 
-  constructor(public navCtrl: NavController, public navParams:NavParams, public fab:FabContainer, public _dialogs:DialogsProvider, private auth:AuthProvider, private events:Events) {
+  constructor(public navCtrl: NavController,
+              public navParams:NavParams,
+              public fab:FabContainer,
+              public _dialogs:DialogsProvider,
+              private auth:AuthProvider,
+              private events:Events) {
     auth.getUser().then(user => this.user = user);
     if (navParams.get('token')) this.token = navParams.get('token');
     events.subscribe('backToMain', () => {
       console.log('updating');
+      this.ngOnInit();
+    });
+    events.subscribe('newMessage', () => {
+      console.log('updating main');
       this.ngOnInit();
     })
   }
@@ -41,6 +50,7 @@ export class HomePage implements OnInit{
       })
       .catch(error => {
         if (error.status === 403) {
+          this.auth.clearStorage();
           this.navCtrl.setRoot(AuthPage);
         }
       })

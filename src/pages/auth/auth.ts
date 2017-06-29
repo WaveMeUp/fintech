@@ -27,6 +27,7 @@ export class AuthPage {
   }
 
   ionViewDidLoad() {
+    this.auth.clearStorage();
     console.log('ionViewDidLoad AuthPage');
   }
 

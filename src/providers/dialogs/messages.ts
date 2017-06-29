@@ -10,6 +10,7 @@ import io from "socket.io-client";
 
 import { RestProvider } from "../rest/rest";
 import { AuthProvider } from '../auth/auth';
+import { UtilsProvider } from '../utils';
 
 import { Message } from '../../models/messageModel';
 
@@ -18,7 +19,7 @@ export class MessagesProvider {
   socket: any = io('http://52.164.255.166:5838');
   // jwt: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicGhvbmVOdW1iZXIiOiI4OTIxNzQ1Njc4NyIsImlhdCI6MTQ5ODUwMjA0Nn0.IjbFxDIYGvBmYvyh29nGHmAwUZhs9_HCQf4nogiQIYA"
   //
-  constructor(public rest:RestProvider, private auth:AuthProvider, private events:Events) {
+  constructor(public rest:RestProvider, private auth:AuthProvider, private events:Events, private utils:UtilsProvider) {
     auth.getUser().then(user => {
       this.socket.emit('authenticate', {token: user.token})
         .on('authenticated', (msg) => {
@@ -30,6 +31,7 @@ export class MessagesProvider {
         .on('message', message => {
           console.log('GOT MSG', message);
           events.publish('newMessage',{message})
+          utils.sounds.newMessage.play(message);
         })
         .on('responseConfirmMessage', message => {
           console.log('got confirmation', message);
@@ -42,6 +44,7 @@ export class MessagesProvider {
     console.log('sending msg', msg);
     this.socket.emit("sendMessage", msg);
     this.events.publish('messageSent',{money:msg.money})
+    this.utils.sounds.messageSent.play();
   }
 
   confirmCash(messageId:number) {

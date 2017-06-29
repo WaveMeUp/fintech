@@ -27,6 +27,8 @@ import { MessagesProvider } from '../providers/dialogs/messages';
 import { SortDatePipe } from '../pipes/sort';
 
 import { HttpInterceptor } from '../http/interceptedHttp';
+import { NativeAudio } from '@ionic-native/native-audio';
+
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { HttpInterceptor } from '../http/interceptedHttp';
     RestProvider,
     UtilsProvider,
     MessagesProvider,
+    NativeAudio,
     {
       provide: Http,
       useClass: HttpInterceptor

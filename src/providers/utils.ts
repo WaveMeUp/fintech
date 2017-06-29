@@ -7,10 +7,30 @@ import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AuthPage } from '../pages/auth/auth';
 
+import { NativeAudio } from '@ionic-native/native-audio';
+
+import { User } from '../models/userModel';
+
 @Injectable()
 export class UtilsProvider {
 
-  constructor(protected injector:Injector, private storage:Storage) {
+  sounds: any = {
+    newMessage: { play: null },
+    messageSent: { play: null }
+  };
+  user: User;
+  constructor(protected injector:Injector, private storage:Storage, private nativeAudio:NativeAudio) {
+    storage.get('user').then(user => this.user = user);
+    this.nativeAudio.preloadSimple("newMessage", "assets/sounds/newMessage.wav")
+      .then(success => console.log('new message loaded', success), error => console.log(error));
+    this.nativeAudio.preloadSimple("messageSent", 'assets/sounds/messageSent.wav')
+      .then(success => console.log('message sent loaded', success), error => console.log(error));
+    this.sounds.newMessage.play = (message) => {
+      if (message.from != this.user.userId) this.playSound("newMessage")
+    };
+    this.sounds.messageSent.play = () => {
+      this.playSound("messageSent")
+    }
   }
 
   get navCtrl(): NavController {
@@ -19,6 +39,10 @@ export class UtilsProvider {
   clearStorage() {
     this.storage.clear();
     this.navCtrl.setRoot(AuthPage);
+  }
+
+  playSound(id: string) {
+    this.nativeAudio.play(id)
   }
 }
 

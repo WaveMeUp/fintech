@@ -17,14 +17,18 @@ export class HttpInterceptor extends Http {
 
   constructor(backend: XHRBackend, defaultOptions: RequestOptions, private storage:Storage, private utils:UtilsProvider) {
     super(backend, defaultOptions);
-    storage.get('user')
+    this.updateUser();
+  }
+
+  private updateUser() {
+    this.storage.get('user')
       .then(user => {
         if (user) this.userToken = user.token;
 
       })
   }
-
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
+    this.updateUser();
     return super.request(url, options)
       .catch(this.catchErrors());
   }
@@ -98,9 +102,8 @@ export class HttpInterceptor extends Http {
     }
 
     options.withCredentials = true;
+    if (this.userToken) options.headers.set('x-access-token', this.userToken); else this.updateUser();
     console.log(this.userToken);
-    if (this.userToken) options.headers.set('x-access-token', this.userToken);
-    console.log(options);
     return options
   }
 }
