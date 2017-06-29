@@ -24,62 +24,6 @@ export class ChatPage{
   dialog: any;
   partner: object;
   user: User;
-  // messages: any = [
-  //   {
-  //     description: "За холодильник",
-  //     amount: "14800Р",
-  //     from: 0, // 0 - пользователь, 1 - собеседник,
-  //     type: 0 //0 - cash, 1 - account
-  //   },
-  //   {
-  //     description: "За суппорта",
-  //     amount: "5340Р",
-  //     from: 1,
-  //     type: 1
-  //   },
-  //   {
-  //     description: "На еду и алкоголь",
-  //     amount: "3500Р",
-  //     from: 0,
-  //     type: 1
-  //   },
-  //   {
-  //     description: "За холодильник",
-  //     amount: "14800Р",
-  //     from: 0, // 0 - пользователь, 1 - собеседник,
-  //     type: 0 //0 - cash, 1 - account
-  //   },
-  //   {
-  //     description: "За суппорта",
-  //     amount: "5340Р",
-  //     from: 1,
-  //     type: 1
-  //   },
-  //   {
-  //     description: "На еду и алкоголь",
-  //     amount: "3500Р",
-  //     from: 0,
-  //     type: 1
-  //   },
-  //   {
-  //     description: "За холодильник",
-  //     amount: "14800Р",
-  //     from: 0, // 0 - пользователь, 1 - собеседник,
-  //     type: 0 //0 - cash, 1 - account
-  //   },
-  //   {
-  //     description: "За суппорта",
-  //     amount: "5340Р",
-  //     from: 1,
-  //     type: 1
-  //   },
-  //   {
-  //     description: "На еду и алкоголь",
-  //     amount: "3500Р",
-  //     from: 0,
-  //     type: 1
-  //   }
-  // ];
   messages: any;
   balance: number;
 
