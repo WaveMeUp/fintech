@@ -30,6 +30,8 @@ import { SortDatePipe } from '../pipes/sort';
 import { HttpInterceptor } from '../http/interceptedHttp';
 import { NativeAudio } from '@ionic-native/native-audio';
 
+import { InputMask } from '../directives/InputMask'
+
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { NativeAudio } from '@ionic-native/native-audio';
     SearchPage,
     AuthPage,
     SlidesPage,
-    SortDatePipe
+    SortDatePipe,
+    InputMask
   ],
   imports: [
     BrowserModule,

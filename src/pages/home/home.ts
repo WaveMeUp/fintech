@@ -33,24 +33,27 @@ export class HomePage implements OnInit{
     auth.getUser().then(user => this.user = user);
     if (navParams.get('token')) this.token = navParams.get('token');
     events.subscribe('backToMain', () => {
-      console.log('updating');
       this.ngOnInit();
     });
-    events.subscribe('newMessage', () => {
-      console.log('updating main');
+    events.subscribe('newCashMessage', () => {
+      this.ngOnInit();
+    })
+    events.subscribe('newOnlineMessage', () => {
+      this.ngOnInit();
+    })
+    events.subscribe('responseConfirmMessage', () => {
       this.ngOnInit();
     })
   }
 
   ionViewDidLoad() {
-    console.log('home loaded');
+    // console.log('home loaded');
   }
   ngOnInit(refresher?: any) {
     this._dialogs.getAllDialogs(this.token)
       .then(data => {
         this.dialogs = data;
         if (refresher) refresher.complete();
-        console.log(this.dialogs);
       })
       .catch(error => {
         if (error.status === 403) {

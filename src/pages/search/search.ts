@@ -37,7 +37,6 @@ export class SearchPage implements OnInit{
     this.loader.presentLoading("Загрузка");
     this._dialogs.checkPhone(phone)
       .then(data => {
-        console.log(data);
         if (data)
           this.showPrompt(data, phone)
       })
@@ -52,7 +51,6 @@ export class SearchPage implements OnInit{
     this._dialogs.createDialog(data.userId, parseInt(balance))
       .then(response => {
         this.loader.dissmissAllLoaders();
-        console.log(response);
         this.openChat(response, this.getPartner(response.users));
       })
   }

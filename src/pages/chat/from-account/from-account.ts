@@ -18,6 +18,7 @@ export class FromAccountPage {
 
   user: User;
   dialog: any;
+  balance: any;
   transaction: TransactionModel = new TransactionModel('account');
 
   constructor(public navCtrl: NavController,
@@ -28,6 +29,7 @@ export class FromAccountPage {
               private messages:MessagesProvider) {
     auth.getUser().then(user => this.user = user);
     this.dialog = navParams.get('dialog');
+    this.balance = navParams.get('balance');
   }
 
   ionViewDidLoad() {
@@ -41,10 +43,6 @@ export class FromAccountPage {
 
   getPartner(users: Array<any>) {
     return users.filter(user => user.id != this.user.userId)[0]
-  }
-
-  getBalance(balances: Array<any>) {
-    return balances.filter(balance => balance.userId === this.user.userId)[0]
   }
 
   sendMoney(amount: string, description: string) {

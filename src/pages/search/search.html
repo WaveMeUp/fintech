@@ -23,7 +23,7 @@
 
   </ion-card>
   <ion-list *ngIf="dialogs?.length > 0">
-    <ion-item *ngFor="let item of dialogs" (click)="openChat(item)">
+    <ion-item *ngFor="let item of dialogs" (click)="openChat(item, getPartner(item.users))">
       <ion-avatar item-start>
         <img src="./assets/img/default-avatar.png">
       </ion-avatar>

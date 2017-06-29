@@ -36,7 +36,6 @@ export class ChatPage{
               private messagesProvider:MessagesProvider) {
     auth.getUser().then(user => this.user = user);
     this.dialog = this.navParams.get('dialog');
-    console.log(this.dialog);
     this.partner = this.navParams.get('partner');
     this.messages = this.dialog.messages;
   }
@@ -45,24 +44,39 @@ export class ChatPage{
     console.log('ionViewDidLoad ChatPage');
     this.updateBalance();
     this.navBar.backButtonClick = (e:UIEvent) => {
-      console.log('fuck back');
       this.back();
       this.navCtrl.pop();
     };
 
-    this.events.subscribe('newMessage', (data) => {
+    this.events.subscribe('newOnlineMessage', (data) => {
       this.updateBalance();
       console.log(data.message);
+      this.messages.push(data.message.message);
+      this.balance = data.message.balance.money;
+      // this.balance = this.balance - parseInt(data.message.money);
+      setTimeout(() => {
+        if(this.content._scroll) this.content.scrollToBottom(100);
+      }, 10)
+    });
+
+    this.events.subscribe('newCashMessage', (data) => {
+      console.log(data.message);
       this.messages.push(data.message);
-      this.balance = this.balance - parseInt(data.message.money);
+      // this.balance = this.balance - parseInt(data.message.money);
       setTimeout(() => {
         if(this.content._scroll) this.content.scrollToBottom(100);
       }, 10)
     });
     this.events.subscribe('messageSent', (data) => {
-      this.updateBalance();
-      console.log(data);
-      this.balance = this.balance + parseInt(data.money);
+      // this.updateBalance();
+      // this.balance = this.balance + parseInt(data.money);
+    })
+
+    this.events.subscribe('responseConfirmMessage', (data) => {
+      this.balance = data.balance.money;
+      this.messages.filter(msg => {
+        return msg.id === data.messageId
+      })[0].isConfirmed = true;
     })
   }
 
@@ -91,11 +105,10 @@ export class ChatPage{
   }
 
   presentModal(page) {
-    let modal = this.modalCtrl.create(page,{user: this.user, dialog: this.dialog});
+    let modal = this.modalCtrl.create(page,{user: this.user, dialog: this.dialog, balance: this.balance});
     modal.present();
   }
   sendMoney(type: string) {
-    console.log('sending ', type);
     switch (type) {
       case 'cash':
         this.presentModal(FromCashPage);

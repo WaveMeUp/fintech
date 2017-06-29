@@ -4,7 +4,6 @@ import { ConfirmationPage } from './confirmation/confirmation';
 import { LoaderProvider } from '../../providers/loader/loader';
 import { AuthProvider } from '../../providers/auth/auth';
 
-
 @Component({
   selector: 'page-auth',
   templateUrl: 'auth.html',
@@ -22,7 +21,7 @@ export class AuthPage {
       .then(userId => {
         console.log('got userid', userId);
         this.loader.dissmissAllLoaders();
-        this.navCtrl.push(ConfirmationPage, {phone, userId})
+        this.navCtrl.push(ConfirmationPage, {phone, userId, name})
       })
     // this.navCtrl.setRoot(AuthConfirmPage);
   }

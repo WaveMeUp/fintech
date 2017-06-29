@@ -13,11 +13,13 @@ import { User } from '../../../models/userModel';
 export class ConfirmationPage {
   phone: string;
   userId: string;
+  name: string;
   code: number = 5673;
 
   constructor(public navCtrl: NavController, private navParams: NavParams, private loader:LoaderProvider, private auth:AuthProvider, private events:Events) {
     this.phone = navParams.get('phone');
     this.userId = navParams.get('userId');
+    this.name = navParams.get('name');
   }
 
   ionViewDidLoad() {
@@ -28,7 +30,7 @@ export class ConfirmationPage {
     this.loader.presentLoading("Проверка кода");
     this.auth.confirmCode(this.userId, code)
       .then(token => {
-        let user = new User(this.userId,this.phone,token);
+        let user = new User(this.userId,this.phone,token,this.name);
         this.auth.setUser(user);
         setTimeout(() => {
           this.loader.dissmissAllLoaders();

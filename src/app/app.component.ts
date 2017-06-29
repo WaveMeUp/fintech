@@ -44,15 +44,13 @@ export class MyApp implements OnInit{
     this.authProvider.getUser()
       .then((user) => {
         if (!user) {
-          console.log('no user data');
           this.nav.setRoot(AuthPage);
         } else {
           this.user = user;
           this.nav.setRoot(HomePage);
-          console.log('success', user)
         }
       }, (error) => {
-        console.log('error occurred', error);
+        console.error('error occurred', error);
       })
   }
   initializeApp() {

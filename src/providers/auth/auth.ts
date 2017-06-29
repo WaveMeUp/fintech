@@ -42,7 +42,7 @@ export class AuthProvider {
    * @param data
    */
   setUser(user:User) {
-    console.log('setting user', user);
+    // console.log('setting user', user);
     this.storage.set('user', user);
   }
 

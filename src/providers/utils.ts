@@ -3,7 +3,7 @@
  */
 
 import { Injectable, Injector } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AuthPage } from '../pages/auth/auth';
 
@@ -19,11 +19,16 @@ export class UtilsProvider {
     messageSent: { play: null }
   };
   user: User;
-  constructor(protected injector:Injector, private storage:Storage, private nativeAudio:NativeAudio) {
-    this.nativeAudio.preloadSimple("newMessage", "assets/sounds/newMessage.wav")
-      .then(success => console.log('new message loaded', success), error => console.log(error));
-    this.nativeAudio.preloadSimple("messageSent", "assets/sounds/messageSent.wav")
-      .then(success => console.log('message sent loaded', success), error => console.log(error));
+  constructor(protected injector:Injector, private storage:Storage, private nativeAudio: NativeAudio, private platform:Platform) {
+
+    platform.ready()
+      .then(() => {
+        this.nativeAudio.preloadSimple("newMessage", "assets/sounds/newMessage.wav")
+          .then(success => console.log('new message loaded', success), error => console.log(error));
+        this.nativeAudio.preloadSimple("messageSent", "assets/sounds/messageSent.wav")
+          .then(success => console.log('message sent loaded', success), error => console.log(error));
+      });
+
     this.sounds.newMessage.play = (message) => {
       storage.get('user').then(user => {
         this.user = user;

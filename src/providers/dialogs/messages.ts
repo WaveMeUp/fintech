@@ -21,38 +21,50 @@ export class MessagesProvider {
   //
   constructor(public rest:RestProvider, private auth:AuthProvider, private events:Events, private utils:UtilsProvider) {
     this.establishConnection();
-    auth.getUser().then(user => {
-      this.socket.emit('authenticate', {token: user.token})
-        .on('authenticated', (msg) => {
-          console.log('auth success', msg)
-        })
-        .on('unauthorized', msg => {
-          console.log('not auth', msg);
-        })
-        .on('message', message => {
-          console.log('GOT MSG', message);
-          events.publish('newMessage',{message})
-          utils.sounds.newMessage.play(message);
-        })
-        .on('responseConfirmMessage', message => {
-          console.log('got confirmation', message);
-          events.publish('responseConfirmMessage', message);
-        })
-        .on('disconnect', msg => {
-          console.log('disconnected', msg)
-          this.establishConnection();
-        })
-    })
   }
 
   establishConnection() {
-    console.log('establishing connection');
     this.socket = io('http://52.164.255.166:5838',{'pingInterval':5000});
+    this.auth.getUser().then(user => {
+      this.socket.emit('authenticate', {token: user.token})
+        .on('authenticated', (msg) => {
+          console.info(msg)
+        })
+        .on('unauthorized', msg => {
+          console.error(msg);
+        })
+        .on('message', message => {
+          console.info('GOT MSG', message);
+          if (message.message) {
+            console.log('online message');
+            this.events.publish('newOnlineMessage',{message})
+            if (message.message.from != user.userId) {
+              this.utils.sounds.newMessage.play(message.message);
+            }
+          }
+          else {
+            console.log('cash message');
+            this.events.publish('newCashMessage',{message});
+            if (message.from != user.userId) {
+              this.utils.sounds.newMessage.play(message);
+            }
+          }
+
+        })
+        .on('responseConfirmMessage', message => {
+          console.info('got confirmation', message);
+          this.events.publish('responseConfirmMessage', message);
+        })
+        .on('disconnect', msg => {
+          console.error(msg)
+          this.establishConnection();
+        })
+    })
+
   }
   sendMessage(msg: Message) {
-    console.log('sending msg', msg);
     this.socket.emit("sendMessage", msg);
-    this.events.publish('messageSent',{money:msg.money})
+    // this.events.publish('messageSent',{money:msg.money})
     this.utils.sounds.messageSent.play();
   }
 

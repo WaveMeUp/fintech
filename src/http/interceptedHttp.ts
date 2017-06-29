@@ -76,10 +76,8 @@ export class HttpInterceptor extends Http {
     new Promise((resolve,reject) => {
       this.storage.get('user')
         .then(user => {
-          console.log(options);
           options.withCredentials = true;
           options.headers.set('x-access-token', '48fj3f');
-          console.log(options);
           resolve(options)
         })
     })
@@ -89,7 +87,6 @@ export class HttpInterceptor extends Http {
 
 
   private updateUrl(req: string) {
-    console.log('updating url');
     return  AppSettings.API_ENDPOINT + req;
   }
 
@@ -103,7 +100,6 @@ export class HttpInterceptor extends Http {
 
     options.withCredentials = true;
     if (this.userToken) options.headers.set('x-access-token', this.userToken); else this.updateUser();
-    console.log(this.userToken);
     return options
   }
 }
