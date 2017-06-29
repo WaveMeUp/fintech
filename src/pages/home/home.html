@@ -19,7 +19,8 @@
         <img src="./assets/img/default-avatar.png">
       </ion-avatar>
       <h2>{{getPartner(item.users).name || getPartner(item.users).phoneNumber}}</h2>
-      <p>{{item.lastMessage}}</p>
+      <h3>{{sort.transform(item.messages, '+updatedAt')[item.messages.length - 1].money || 0}}₽</h3>
+      <p>{{item.messages[item.messages.length - 1].comment || 'Без описания'}}</p>
       <ion-badge item-end>{{getBalance(item.balances).money || 0}}₽</ion-badge>
     </ion-item>
   </ion-list>

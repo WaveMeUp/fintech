@@ -8,11 +8,13 @@ import {AuthPage} from "../auth/auth";
 import { AuthProvider } from '../../providers/auth/auth';
 import { User } from '../../models/userModel';
 
+import {SortDatePipe} from '../../pipes/sort';
+
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [FabContainer, DialogsProvider]
+  providers: [FabContainer, DialogsProvider, SortDatePipe]
 })
 export class HomePage implements OnInit{
   temp: any;
@@ -26,7 +28,8 @@ export class HomePage implements OnInit{
               public fab:FabContainer,
               public _dialogs:DialogsProvider,
               private auth:AuthProvider,
-              private events:Events) {
+              private events:Events,
+              public sort:SortDatePipe) {
     auth.getUser().then(user => this.user = user);
     if (navParams.get('token')) this.token = navParams.get('token');
     events.subscribe('backToMain', () => {

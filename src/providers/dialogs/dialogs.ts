@@ -45,7 +45,7 @@ export class DialogsProvider {
   }*/
 
 
-  getAllDialogs(token?: string) {
+  getAllDialogs(token?: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.rest.getDialogs(token)
         .subscribe(res => {
