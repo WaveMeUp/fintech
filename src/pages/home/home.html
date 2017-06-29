@@ -13,6 +13,12 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher (ionRefresh)="ngOnInit($event)">
+    <ion-refresher-content pullingText="Обновить" refreshingText="Обновление...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-list *ngIf="dialogs?.length > 0">
     <ion-item *ngFor="let item of dialogs | sortdate: '-updatedAt'" (click)="openChat(item, getPartner(item.users))">
       <ion-avatar item-start>

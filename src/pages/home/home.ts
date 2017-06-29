@@ -45,10 +45,11 @@ export class HomePage implements OnInit{
   ionViewDidLoad() {
     console.log('home loaded');
   }
-  ngOnInit() {
+  ngOnInit(refresher?: any) {
     this._dialogs.getAllDialogs(this.token)
       .then(data => {
         this.dialogs = data;
+        if (refresher) refresher.complete();
         console.log(this.dialogs);
       })
       .catch(error => {
