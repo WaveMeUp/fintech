@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../../home/home';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { SlidesPage } from '../../slides/slides';
 import { LoaderProvider } from '../../../providers/loader/loader';
 import { AuthProvider } from '../../../providers/auth/auth';
 
@@ -15,7 +15,7 @@ export class ConfirmationPage {
   userId: string;
   code: number = 5673;
 
-  constructor(public navCtrl: NavController, private navParams: NavParams, private loader:LoaderProvider, private auth:AuthProvider) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, private loader:LoaderProvider, private auth:AuthProvider, private events:Events) {
     this.phone = navParams.get('phone');
     this.userId = navParams.get('userId');
   }
@@ -32,7 +32,8 @@ export class ConfirmationPage {
         this.auth.setUser(user);
         setTimeout(() => {
           this.loader.dissmissAllLoaders();
-          this.navCtrl.setRoot(HomePage,{token});
+          this.navCtrl.setRoot(SlidesPage,{token});
+          this.events.publish('userSet', {});
         }, 2000);
         console.log('got token', token, typeof(token));
       })

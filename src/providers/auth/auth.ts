@@ -15,8 +15,7 @@ export class AuthProvider {
 
   constructor(private storage:Storage, private rest:RestProvider) {
     console.log('Hello AuthProvider Provider');
-/*    storage.clear();
-    storage.get('token').then(token => console.log(token));*/
+    // this.clearStorage();
   }
 
   getUser():Promise<any> {

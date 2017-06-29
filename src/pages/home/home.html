@@ -19,6 +19,16 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <ion-grid *ngIf="dialogs?.length === 0 || !dialogs">
+    <ion-row>
+      <ion-col text-center>
+        <h1>
+          Пока что ничего нет. <br />Добавьте собеседника на странице поиска
+        </h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-list *ngIf="dialogs?.length > 0">
     <ion-item *ngFor="let item of dialogs | sortdate: '-updatedAt'" (click)="openChat(item, getPartner(item.users))">
       <ion-avatar item-start>

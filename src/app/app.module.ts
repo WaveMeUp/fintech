@@ -14,6 +14,7 @@ import { ChatPage } from '../pages/chat/chat';
 import { FromAccountPage } from '../pages/chat/from-account/from-account';
 import { FromCashPage } from '../pages/chat/from-cash/from-cash';
 import { SearchPage } from '../pages/search/search';
+import { SlidesPage } from '../pages/slides/slides';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,6 +42,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
     FromCashPage,
     SearchPage,
     AuthPage,
+    SlidesPage,
     SortDatePipe
   ],
   imports: [
@@ -59,7 +61,8 @@ import { NativeAudio } from '@ionic-native/native-audio';
     ChatPage,
     FromAccountPage,
     FromCashPage,
-    SearchPage
+    SearchPage,
+    SlidesPage
   ],
   providers: [
     AuthProvider,

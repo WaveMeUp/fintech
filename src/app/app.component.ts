@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AuthPage } from '../pages/auth/auth'
 import { ChatPage } from '../pages/chat/chat';
+import { SlidesPage } from '../pages/slides/slides';
 import { AuthProvider } from '../providers/auth/auth';
 
 import { User } from '../models/userModel';
@@ -23,13 +24,20 @@ export class MyApp implements OnInit{
   pages: Array<{title: string, component: any}>;
   user: User;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public authProvider:AuthProvider) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public authProvider:AuthProvider, private events:Events) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Диалоги', component: HomePage }
+      { title: 'Диалоги', component: HomePage },
+      // { title: 'Slides', component: SlidesPage}
     ];
+
+    events.subscribe('userSet', () => {
+      authProvider.getUser().then(user => {
+        this.user = user
+      });
+    })
 
   }
   ngOnInit() {
