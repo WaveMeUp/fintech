@@ -71,6 +71,6 @@ export class MyApp implements OnInit{
 
   exit() {
     this.authProvider.clearStorage();
-    this.nav.setRoot(AuthPage);
+    this.platform.exitApp();
   }
 }
