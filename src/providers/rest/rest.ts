@@ -21,8 +21,8 @@ export class RestProvider {
    * @param name
    * @returns {Observable<R>}
    */
-  sendSms(phoneNumber:string, name?: string) {
-    return this.http.post("auth/sendSms", {phoneNumber, name})
+  sendSms(phoneNumber:string, userName?: string) {
+    return this.http.post("auth/sendSms", {phoneNumber, userName})
       .map(res => res.json())
   }
 
