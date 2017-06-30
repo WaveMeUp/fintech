@@ -51,7 +51,9 @@ import { InputMask } from '../directives/InputMask'
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: "Назад"
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
